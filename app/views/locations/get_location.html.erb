@@ -1,0 +1,30 @@
+<h1>Locations#get_location</h1>
+<p>Find me in app/views/locations/get_location.html.erb</p>
+
+
+<div id="demo"></div>
+
+<script>
+
+ 
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getAddress);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function getAddress(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        $.ajax({
+            url: '<%= locations_find_address_path %>',
+            type: 'GET',
+            dataType: 'json',
+            data: {latitude: latitude, longitude: longitude}
+        }).done(function(data) {
+            $('#demo').text(data.address)
+        });
+    };
+
+</script>
